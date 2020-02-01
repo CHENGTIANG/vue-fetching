@@ -18,6 +18,25 @@ Vue.component('Fetched', Fetched);
 ```
 
 
+Globally set the default `loadingComponent` and `errorComponent` component
+
+```js
+import Fetched from 'vue-fetched';
+import LoadingComponent from 'path/to/Loading.vue';
+import ErrorComponent from 'path/to/Error.vue';
+
+Vue.component("Fetched", Fetched.extend({
+  props: {
+    loadingComponent: {
+      default: () => LoadingComponent,
+    },
+    errorComponent: {
+      default: () => ErrorComponent
+    }
+  }
+}))
+```
+
 
 ### Using `loading`, `default` and `error` slots
 

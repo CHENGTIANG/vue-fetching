@@ -8,7 +8,9 @@ export default Vue.extend({
         tag: {
             type: String,
             default: 'div',
-        }
+        },
+        loadingComponent: Function || String,
+        errorComponent: Function || String,
     },
     data(): { response: null | any, error: null | any, loading: boolean } {
         return {
@@ -18,31 +20,7 @@ export default Vue.extend({
         };
     },
     render(createElement: CreateElement, hack: RenderContext): VNode {
-        const defaultScopedSlot = this.response && this.$scopedSlots.default;
-        const loadingScopedSlot = this.loading && this.$scopedSlots.loading;
-        const errorScopedSlot = this.error && this.$scopedSlots.error as any;
-        const combinedScopedSlot = this.$scopedSlots.combined;
-        return createElement(this.tag, {
-        }, combinedScopedSlot ? [
-            combinedScopedSlot({
-                loading: this.loading,
-                error: this.error,
-                retry: this.retryFetch,
-                data: this.response,
-
-            })
-        ] : [
-                loadingScopedSlot && loadingScopedSlot({
-                    loading: this.loading,
-                }),
-                errorScopedSlot && errorScopedSlot({
-                    error: this.error,
-                    retry: this.retryFetch,
-                }),
-                defaultScopedSlot && defaultScopedSlot({
-                    data: this.response,
-                }),
-            ]);
+        return createElement(this.tag, {}, this.genDisplay());
     },
     methods: {
         async tryFetch() {
@@ -61,6 +39,69 @@ export default Vue.extend({
         async retryFetch() {
             this.error = null;
             this.tryFetch();
+        },
+        genDisplay() {
+            const combinedScopedSlot = this.genCombinedSlot();
+            if (combinedScopedSlot) {
+                return [combinedScopedSlot];
+            }
+            return [
+                this.genLoading(),
+                this.genError(),
+                this.genDefault()
+            ];
+        },
+        genCombinedSlot() {
+            if (this.$scopedSlots.combined) {
+                return this.$scopedSlots.combined({
+                    loading: this.loading,
+                    error: this.error,
+                    retry: this.retryFetch,
+                    data: this.response,
+                })
+            }
+        },
+        genDefault() {
+            if (!this.response) {
+                return;
+            }
+            if (this.$scopedSlots.default) {
+                return this.$scopedSlots.default({
+                    data: this.response,
+                });
+            }
+        },
+        genLoading() {
+            if (!this.loading) {
+                return
+            } else if (this.$scopedSlots.loading) {
+                return this.$scopedSlots.loading({
+                    loading: this.loading,
+                })
+            } else if (this.loadingComponent) {
+                return this.$createElement(this.loadingComponent, {
+                    props: {
+                        loading: this.loading,
+                    }
+                });
+            }
+        },
+        genError() {
+            if (!this.error) {
+                return;
+            } else if (this.$scopedSlots.error) {
+                return this.$scopedSlots.error({
+                    error: this.error,
+                    retry: this.retryFetch,
+                });
+            } else if (this.errorComponent) {
+                return this.$createElement(this.errorComponent, {
+                    props: {
+                        error: this.error,
+                        retry: this.retryFetch,
+                    }
+                });
+            }
         },
     },
     created() {

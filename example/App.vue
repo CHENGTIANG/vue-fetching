@@ -6,6 +6,18 @@
         <div>Name: {{user.name}}</div>
         <div>Age: {{user.age}}</div>
       </template>
+    </Fetched>
+
+    <br />
+    <br />
+    <br />
+
+    <Fetched :fetch="fetchUser">
+      <!-- The default scoped slot will be used as the result -->
+      <template v-slot="{data: user}">
+        <div>Name: {{user.name}}</div>
+        <div>Age: {{user.age}}</div>
+      </template>
 
       <!-- Use the "loading" slot to display a loading message -->
       <template v-slot:loading>
