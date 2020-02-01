@@ -1,8 +1,9 @@
 {
-  "name": "vue-fetched",
+  "name": "vue-fetching",
   "version": "1.0.0",
-  "description": "Fetched Component for Vue",
+  "description": "Fetching Component for Vue",
   "author": "Grant",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "test:unit": "vue-cli-service test:unit",
@@ -29,12 +30,15 @@
   ],
   "keywords": [
     "fetch",
-    "fetched"
+    "fetching",
+    "vue",
+    "vue-fetching",
+    "vuefetching"
   ],
   "license": "MIT",
   "types": "types/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CHENGTIANG/vue-fetched.git"
+    "url": "https://github.com/CHENGTIANG/vue-fetching.git"
   }
 }

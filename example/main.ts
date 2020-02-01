@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import App from "./App.vue";
 
-import Fetched from "../dist/index";
+import Fetching from "../dist/index";
 import LoadingComponent from './Loading.vue';
 import ErrorComponent from './Error.vue';
-// Vue.component("Fetched", Fetched);
+// Vue.component("Fetching", Fetching);
 
-Vue.component("Fetched", Fetched.extend({
+Vue.component("Fetching", Fetching.extend({
   props: {
     loadingComponent: {
       default: () => LoadingComponent,
@@ -18,7 +18,7 @@ Vue.component("Fetched", Fetched.extend({
 }))
 
 // Vue.component("Loading", LoadingComponent);
-// Vue.component("Fetched", Fetched.extend({
+// Vue.component("Fetching", Fetching.extend({
 //   props: {
 //     loadingComponent: {
 //       default: 'Loading'

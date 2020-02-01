@@ -1,18 +1,18 @@
 <template>
   <div>
-    <Fetched :fetch="fetchUser">
+    <Fetching :fetch="fetchUser">
       <!-- The default scoped slot will be used as the result -->
       <template v-slot="{data: user}">
         <div>Name: {{user.name}}</div>
         <div>Age: {{user.age}}</div>
       </template>
-    </Fetched>
+    </Fetching>
 
     <br />
     <br />
     <br />
 
-    <Fetched :fetch="fetchUser">
+    <Fetching :fetch="fetchUser">
       <!-- The default scoped slot will be used as the result -->
       <template v-slot="{data: user}">
         <div>Name: {{user.name}}</div>
@@ -31,13 +31,13 @@
           <button @click="retry">Retry</button>
         </p>
       </template>
-    </Fetched>
+    </Fetching>
 
     <br />
     <br />
     <br />
 
-    <Fetched :fetch="fetchUser">
+    <Fetching :fetch="fetchUser">
       <template v-slot:combined="{ loading, data, error, retry }">
         <p v-if="loading">Loading...</p>
         <p v-else-if="error">
@@ -49,7 +49,7 @@
           <div>Age: {{data.age}}</div>
         </div>
       </template>
-    </Fetched>
+    </Fetching>
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 ## Installation
 
 ```bash
-npm install vue-fetched
+npm install vue-fetching
 # or
-yarn add vue-fetched
+yarn add vue-fetching
 ```
 
 
@@ -12,20 +12,20 @@ yarn add vue-fetched
 Import the component to use it
 
 ```js
-import Fetched from 'vue-fetched';
+import Fetching from 'vue-fetching';
 
-Vue.component('Fetched', Fetched);
+Vue.component('Fetching', Fetching);
 ```
 
 
 Globally set the default `loadingComponent` and `errorComponent` component
 
 ```js
-import Fetched from 'vue-fetched';
+import Fetching from 'vue-fetching';
 import LoadingComponent from 'path/to/Loading.vue';
 import ErrorComponent from 'path/to/Error.vue';
 
-Vue.component("Fetched", Fetched.extend({
+Vue.component("Fetching", Fetching.extend({
   props: {
     loadingComponent: {
       default: () => LoadingComponent,
@@ -42,7 +42,7 @@ Vue.component("Fetched", Fetched.extend({
 
 ```vue
 <template>
-  <Fetched :fetch="fetchUser">
+  <Fetching :fetch="fetchUser">
     <!-- The default scoped slot will be used as the result -->
     <template v-slot="{data: user}">
       <div>Name: {{user.name}}</div>
@@ -59,7 +59,7 @@ Vue.component("Fetched", Fetched.extend({
         <button @click="retry">Retry</button>
       </p>
     </template>
-  </Fetched>
+  </Fetching>
 </template>
 
 <script>
@@ -78,7 +78,7 @@ export default {
 
 ```vue
 <template>
-  <Fetched :fetch="fetchUser">
+  <Fetching :fetch="fetchUser">
     <template v-slot:combined="{ loading, data, error, retry }">
       <p v-if="loading">Loading...</p>
       <p v-else-if="error">
@@ -90,7 +90,7 @@ export default {
         <div>Age: {{data.age}}</div>
       </div>
     </template>
-  </Fetched>
+  </Fetching>
 </template>
 <script>
 const responseData = {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { mount } from '@vue/test-utils';
-import Fetched from '../../dist/index';
+import Fetching from '../../dist/index';
 const slots = {
   loading: 'loading',
 }
@@ -16,11 +16,11 @@ const scopedSlots = {
 const tick = () => new Promise(resolve => setTimeout(resolve, 0))
 const delay = (time = 1000) => new Promise(resolve => setTimeout(resolve, time))
 
-describe('Fetched', () => {
+describe('Fetching', () => {
 
-  it('displays fetched', async () => {
+  it('displays fetching', async () => {
     const msg = "Hello World!"
-    const wrapper = mount(Fetched, {
+    const wrapper = mount(Fetching, {
       slots,
       scopedSlots,
     
@@ -37,7 +37,7 @@ describe('Fetched', () => {
 
   it('displays loading', async () => {
     const msg = "Hello World!"
-    const wrapper = mount(Fetched, {
+    const wrapper = mount(Fetching, {
       slots,
       scopedSlots,
       propsData: {
@@ -53,7 +53,7 @@ describe('Fetched', () => {
 
   it('displays loaded', async () => {
     const msg = "Hello World!"
-    const wrapper = mount(Fetched, {
+    const wrapper = mount(Fetching, {
       slots,
       scopedSlots,
       propsData: {
@@ -71,7 +71,7 @@ describe('Fetched', () => {
 
   it('display error', async () => {
     const msg = "Error"
-    const wrapper = mount(Fetched, {
+    const wrapper = mount(Fetching, {
       slots,
       scopedSlots,
       propsData: {

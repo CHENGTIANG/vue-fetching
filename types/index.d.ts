@@ -3,7 +3,7 @@ import {
 } from 'vue/types/options'
 import { Vue } from 'vue/types/vue'
 
-export declare var Fetched: {
+export declare var Fetching: {
     props: {
         fetch: PropType<Function>
     }
