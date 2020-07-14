@@ -1,3 +1,4 @@
+import { __awaiter, __generator } from "tslib";
 import Vue from 'vue';
 export default Vue.extend({
     name: "Fetching",
@@ -13,39 +14,52 @@ export default Vue.extend({
         loadingComponent: [Function, String],
         errorComponent: [Function, String],
     },
-    data() {
+    data: function () {
         return {
             response: undefined,
             error: undefined,
             loading: false,
         };
     },
-    render(createElement, hack) {
+    render: function (createElement, hack) {
         return createElement(this.tag, {}, this.genDisplay());
     },
     methods: {
-        async tryFetch() {
-            try {
-                this.loading = true;
-                if (!this.fetch) {
-                    throw `Missing required prop: "fetch"`;
-                }
-                this.response = await this.fetch() || null;
-            }
-            catch (error) {
-                this.error = error || null;
-            }
-            finally {
-                this.loading = false;
-            }
+        tryFetch: function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a, error_1;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _b.trys.push([0, 2, 3, 4]);
+                            this.loading = true;
+                            if (!this.fetch) {
+                                throw "Missing required prop: \"fetch\"";
+                            }
+                            _a = this;
+                            return [4 /*yield*/, this.fetch()];
+                        case 1:
+                            _a.response = (_b.sent()) || null;
+                            return [3 /*break*/, 4];
+                        case 2:
+                            error_1 = _b.sent();
+                            this.error = error_1 || null;
+                            return [3 /*break*/, 4];
+                        case 3:
+                            this.loading = false;
+                            return [7 /*endfinally*/];
+                        case 4: return [2 /*return*/];
+                    }
+                });
+            });
         },
-        retryFetch() {
+        retryFetch: function () {
             this.error = undefined;
             this.response = undefined;
             this.tryFetch();
         },
-        genDisplay() {
-            const combinedScopedSlot = this.genCombinedSlot();
+        genDisplay: function () {
+            var combinedScopedSlot = this.genCombinedSlot();
             if (combinedScopedSlot) {
                 return [combinedScopedSlot];
             }
@@ -55,7 +69,7 @@ export default Vue.extend({
                 this.genDefault()
             ];
         },
-        genCombinedSlot() {
+        genCombinedSlot: function () {
             if (this.$scopedSlots.combined) {
                 return this.$scopedSlots.combined({
                     loading: this.loading,
@@ -65,7 +79,7 @@ export default Vue.extend({
                 });
             }
         },
-        genDefault() {
+        genDefault: function () {
             if (this.response === undefined) {
                 return;
             }
@@ -75,7 +89,7 @@ export default Vue.extend({
                 });
             }
         },
-        genLoading() {
+        genLoading: function () {
             if (!this.loading) {
                 return;
             }
@@ -92,7 +106,7 @@ export default Vue.extend({
                 });
             }
         },
-        genError() {
+        genError: function () {
             if (this.error === undefined) {
                 return;
             }
@@ -112,7 +126,7 @@ export default Vue.extend({
             }
         },
     },
-    created() {
+    created: function () {
         this.tryFetch();
     },
 });
