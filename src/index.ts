@@ -1,5 +1,6 @@
 import Vue, { VNode, CreateElement, RenderContext } from 'vue';
 export default Vue.extend({
+    name: "Fetching",
     props: {
         fetch: {
             type: Function,
@@ -9,13 +10,13 @@ export default Vue.extend({
             type: String,
             default: 'div',
         },
-        loadingComponent: Function || String,
-        errorComponent: Function || String,
+        loadingComponent: [Function, String],
+        errorComponent: [Function, String],
     },
-    data(): { response: null | any, error: null | any, loading: boolean } {
+    data(): { response: undefined | any, error: null | any, loading: boolean } {
         return {
-            response: null,
-            error: null,
+            response: undefined,
+            error: undefined,
             loading: false,
         };
     },
@@ -29,15 +30,16 @@ export default Vue.extend({
                 if (!this.fetch) {
                     throw `Missing required prop: "fetch"`;
                 }
-                this.response = await this.fetch();
+                this.response = await this.fetch() || null;
             } catch (error) {
-                this.error = error;
+                this.error = error || null;
             } finally {
                 this.loading = false;
             }
         },
-        async retryFetch() {
-            this.error = null;
+        retryFetch() {
+            this.error = undefined;
+            this.response = undefined;
             this.tryFetch();
         },
         genDisplay() {
@@ -62,7 +64,7 @@ export default Vue.extend({
             }
         },
         genDefault() {
-            if (!this.response) {
+            if (this.response === undefined) {
                 return;
             }
             if (this.$scopedSlots.default) {
@@ -87,7 +89,7 @@ export default Vue.extend({
             }
         },
         genError() {
-            if (!this.error) {
+            if (this.error === undefined) {
                 return;
             } else if (this.$scopedSlots.error) {
                 return this.$scopedSlots.error({
