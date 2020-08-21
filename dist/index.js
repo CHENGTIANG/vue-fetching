@@ -13,6 +13,7 @@ export default Vue.extend({
         },
         loadingComponent: [Function, String],
         errorComponent: [Function, String],
+        data: [String, Number, Boolean, Array, Object, Date, Function, Symbol],
     },
     data: function () {
         return {
@@ -40,6 +41,7 @@ export default Vue.extend({
                             return [4 /*yield*/, this.fetch()];
                         case 1:
                             _a.response = (_b.sent()) || null;
+                            this.$emit('update:data', this.response);
                             return [3 /*break*/, 4];
                         case 2:
                             error_1 = _b.sent();
@@ -56,6 +58,7 @@ export default Vue.extend({
         retryFetch: function () {
             this.error = undefined;
             this.response = undefined;
+            this.$emit('update:data', this.response);
             this.tryFetch();
         },
         genDisplay: function () {

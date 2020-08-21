@@ -12,6 +12,7 @@ export default Vue.extend({
         },
         loadingComponent: [Function, String],
         errorComponent: [Function, String],
+        data: [String, Number, Boolean, Array, Object, Date, Function, Symbol],
     },
     data(): { response: undefined | any, error: null | any, loading: boolean } {
         return {
@@ -31,6 +32,7 @@ export default Vue.extend({
                     throw `Missing required prop: "fetch"`;
                 }
                 this.response = await this.fetch() || null;
+                this.$emit('update:data', this.response);
             } catch (error) {
                 this.error = error || null;
             } finally {
@@ -40,6 +42,7 @@ export default Vue.extend({
         retryFetch() {
             this.error = undefined;
             this.response = undefined;
+            this.$emit('update:data', this.response);
             this.tryFetch();
         },
         genDisplay() {

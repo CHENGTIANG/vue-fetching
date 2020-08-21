@@ -50,15 +50,33 @@
         </div>
       </template>
     </Fetching>
+
+    <br />
+    <br />
+    <br />
+
+    <Fetching :fetch="fetchUser" :data.sync="syncData">
+      <!-- The default scoped slot will be used as the result -->
+      <template v-slot="{data: user}">
+        <div>Name: {{user.name}}</div>
+        <div>Age: {{user.age}}</div>
+        <div>SyncData: {{syncData}}</div>
+      </template>
+    </Fetching>
   </div>
 </template>
 
 <script>
 const responseData = {
   name: "Grant",
-  age: 22
+  age: 22,
 };
 export default {
+  data() {
+    return {
+      syncData: null,
+    };
+  },
   methods: {
     fetchUser() {
       return new Promise((resolve, reject) => {
@@ -70,7 +88,7 @@ export default {
           1000
         );
       });
-    }
-  }
+    },
+  },
 };
 </script>

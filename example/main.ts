@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from "./App.vue";
 
-import Fetching from "../dist/index";
+import Fetching from "../src";
 import LoadingComponent from './Loading.vue';
 import ErrorComponent from './Error.vue';
 // Vue.component("Fetching", Fetching);
