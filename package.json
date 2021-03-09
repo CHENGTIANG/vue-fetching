@@ -1,6 +1,6 @@
 {
   "name": "vue-fetching",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fetching Component for Vue",
   "author": "Grant",
   "private": false,
@@ -14,6 +14,7 @@
     "vue": "^2.5.18"
   },
   "devDependencies": {
+    "vue": "^2.5.18",
     "@types/chai": "^4.2.8",
     "@types/mocha": "^7.0.1",
     "@vue/cli-plugin-typescript": "^4.5.4",
@@ -25,9 +26,9 @@
     "vue-template-compiler": "^2.6.11"
   },
   "files": [
-    "src/",
-    "dist/",
-    "types/"
+    "src",
+    "dist",
+    "types"
   ],
   "keywords": [
     "fetch",
